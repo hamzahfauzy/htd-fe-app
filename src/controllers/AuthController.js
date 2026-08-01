@@ -18,17 +18,21 @@ export default class AuthController {
             ctx.on('#loginForm', 'submit', async e => {
                 e.preventDefault()
 
-                ctx.state.btnLoginLabel = 'Processing...'
-                ctx.refresh()
+                document.querySelector('.btn-login').innerHTML = 'Processing...'
 
                 const login = await this.doLogin(ctx)
 
-                ctx.state.btnLoginLabel = 'Sign In'
-                ctx.refresh()
-
                 if(login)
                 {
+                    document.querySelector('.btn-login').innerHTML = 'Login Success'
                     ctx.redirect('/')
+                }
+                else
+                {
+                    document.querySelector('.btn-login').innerHTML = 'Login Failed'
+                    setTimeout(e => {
+                        document.querySelector('.btn-login').innerHTML = 'Sign In'
+                    }, 1000)
                 }
 
             })
@@ -57,7 +61,7 @@ export default class AuthController {
 
     
         } catch (error) {
-            alert(error.data.message)
+            
         }
 
         return false

@@ -24,6 +24,10 @@ Route.add('/setting', 'views/layouts/app', isAuthenticated, () => {
     document.title = 'Setting'
 }, ['IndexController','setting'])
 
+Route.add('/profile/edit', 'views/layouts/app', isAuthenticated, () => {
+    document.title = 'Edit Profile'
+}, ['IndexController','editProfile'])
+
 Route.add('/profile', 'views/layouts/app', isAuthenticated, () => {
     document.title = 'Profile'
 }, ['IndexController','profile'])

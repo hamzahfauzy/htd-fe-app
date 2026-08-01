@@ -9,7 +9,7 @@ import Action from './components/Action.js';
 import Breadcrumb from './components/Breadcrumb.js';
 import view from './core/view.js';
 import { doLogout, isRouteActive, setSideMenuActive, filterAction, isAllowed } from './libs/functions.js';
-import { apiUrl } from './config/environtment.js';
+import { apiUrl } from './config/env.js';
 
 Http.defaults.baseURL = apiUrl;
 

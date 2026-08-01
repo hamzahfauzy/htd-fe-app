@@ -37,7 +37,7 @@
             </div>
 
             <!-- Submit Button -->
-            <button type="submit" class="btn btn-normal btn-dark w-100 rounded-3 py-2 fw-semibold mb-2">{{btnLoginLabel}}</button>
+            <button type="submit" class="btn btn-normal btn-dark w-100 rounded-3 py-2 fw-semibold mb-2 btn-login">{{btnLoginLabel}}</button>
         </form>
         
 

@@ -1,3 +1,9 @@
+/**
+ * 
+ * @param {action { url(data), route, class, label, id}, data} props 
+ * @param {*} ctx 
+ * @returns 
+ */
 export default async function (props, ctx) {
     const userData = ctx.app.getGlobal('userData')
     const userPermissions = userData.permissions

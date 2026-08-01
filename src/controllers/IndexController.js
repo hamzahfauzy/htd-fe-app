@@ -38,4 +38,42 @@ export default class IndexController {
             fields
         })
     }
+
+    async editProfile(ctx){
+        const fields = [
+            {name: 'name', label: 'Name', type: 'text', required: true},
+            {name: 'email', label: 'Email', type: 'text', required: true},
+            {name: 'username', label: 'Username', type: 'text', required: true},
+            {name: 'password', label: 'Password', type: 'password', required: true},
+        ]
+
+        ctx.onMounted(() => {
+
+            ctx.on('#update-profile-form', 'submit', async e => {
+                e.preventDefault()
+
+                document.querySelector('.btn-submit').innerHTML = 'Submiting...'
+
+                const formData = new FormData(e.currentTarget)
+
+                const response = await ctx.http.put('/me', formData)
+
+                Swal.fire("Profile updated!", "", "success");
+                
+                ctx.app.provide('userData', response.data)
+
+                ctx.app.refresh('vtp-account', {props: {}, ctx})
+
+                document.querySelector('.btn-submit').innerHTML = 'Submit'
+
+                ctx.redirect('/profile')
+
+                return false;
+            })
+        })
+
+        return await view.render('pages/edit-profile', {
+            fields
+        })
+    }
 }

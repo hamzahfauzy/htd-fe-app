@@ -141,4 +141,13 @@ export default class App {
 
     }
 
+    async refresh(componentName, params){
+        const component = this.getComponent(componentName)
+        const el = document.querySelector(
+            '[data-vtp-component="'+componentName+'"]'
+        );
+
+        el.innerHTML = await component(params.props, params.ctx);
+    }
+
 }
