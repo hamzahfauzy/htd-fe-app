@@ -1,0 +1,4 @@
+<div class="form-group mb-3">
+    <label for="" class="fw-semibold mb-1">{{field.label}}</label>
+    <input type="time" name="{{field.name}}" value="{{data[field.name] ?? ''}}" placeholder="{{field.placeholder ?? field.label}}" class="form-control">
+</div>
