@@ -141,13 +141,27 @@ export default class App {
 
     }
 
-    async refresh(componentName, params){
-        const component = this.getComponent(componentName)
-        const el = document.querySelector(
-            '[data-vtp-component="'+componentName+'"]'
+    async refresh(componentName, props){
+        const component = this.getComponent(componentName);
+
+        const oldElement = document.querySelector(
+            `[data-vtp-component="${componentName}"]`
         );
 
-        el.innerHTML = await component(params.props, params.ctx);
+        if (!oldElement) {
+            return;
+        }
+
+        const html = await component(props);
+
+        const template = document.createElement("template");
+        template.innerHTML = html.trim();
+
+        const newElement = template.content.firstElementChild;
+
+        oldElement.replaceWith(newElement);
+
+        this.mount()
     }
 
 }

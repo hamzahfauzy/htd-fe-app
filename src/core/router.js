@@ -89,6 +89,9 @@ export default class Router {
 
     navigate(path) {
         history.pushState({}, "", path);
+        
+        this.app.refresh('vtp-sidebar')
+        
         this.load();
     }
 
@@ -113,7 +116,7 @@ export default class Router {
             ) {
                 return;
             }
-            
+
             this.navigate(link.getAttribute("href"));
 
             return

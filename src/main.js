@@ -19,8 +19,6 @@ const app = new App;
 
 app.on('.btn-logout', 'click', doLogout);
 
-app.on('.vtp-side-menu', 'click', setSideMenuActive);
-
 app.function('isRouteActive', isRouteActive)
 app.function('filterAction', actions => {
     return filterAction(actions, app)
@@ -34,12 +32,16 @@ app.provide('menus', menu)
 app.component('vtp-input', Input)
 app.component('vtp-action', Action)
 app.component('breadcrumb', Breadcrumb)
-app.component('vtp-notification', function(ctx){
+app.component('vtp-notification', e => {
     return view.render('components/notification')
 })
 
-app.component('vtp-account', function(ctx){
+app.component('vtp-account', e => {
     return view.render('components/account')
+})
+
+app.component('vtp-sidebar', e => {
+    return view.render('components/sidebar')
 })
 
 const router = new Router(routes, app);

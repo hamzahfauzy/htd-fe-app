@@ -8,17 +8,17 @@ const userData = {}
 
 Route.add("/login", 'views/layouts/auth', function(){
     document.title = 'Login'
-}, ['AuthController', 'index']);
+}, ['AuthController', 'index'])
 
 Route.add("/forget-password", 'views/layouts/auth', function(){
     document.title = 'Forget Password'
-}, ['AuthController', 'forgetPassword']);
+}, ['AuthController', 'forgetPassword'])
 
 // APP ROUTE
 
 Route.add("/", 'views/layouts/app', isAuthenticated, function(){
     document.title = 'Dashboard'
-}, ['IndexController', 'index']);
+}, ['IndexController', 'index'])
 
 Route.add('/setting', 'views/layouts/app', isAuthenticated, () => {
     document.title = 'Setting'
