@@ -127,6 +127,8 @@ header.navbar {
     vertical-align:middle;
     padding-left:1rem;
     padding-right:1rem;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .form-control{
