@@ -135,9 +135,11 @@ export default class HttpClient {
 
             error.data = body;
 
+            const message = body.data ? Object.values(body.data).join("<br>") : ''
+
             Swal.fire({
                 title: "Error!",
-                text: body.message,
+                html: body.message + "<br>" + message,
                 icon: "error",
                 confirmButtonText: "Ok",
             })

@@ -54,20 +54,23 @@ export default class IndexController {
 
                 document.querySelector('.btn-submit').innerHTML = 'Submiting...'
 
-                const formData = new FormData(e.currentTarget)
-
-                const response = await ctx.http.put('/me', formData)
-
-                Swal.fire("Profile updated!", "", "success");
-                
-                ctx.app.provide('userData', response.data)
-
-                ctx.app.refresh('vtp-account', {props: {}, ctx})
+                try {
+                    
+                    const formData = new FormData(e.currentTarget)
+    
+                    const  response = await ctx.http.put('/me', formData)
+    
+                    Swal.fire("Profile updated!", "", "success");
+                    
+                    ctx.app.provide('userData', response.data)
+                    ctx.app.refresh('vtp-account', {props: {}, ctx})
+                    ctx.redirect('/profile')
+                    
+                } catch (error) {
+                    
+                }
 
                 document.querySelector('.btn-submit').innerHTML = 'Submit'
-
-                ctx.redirect('/profile')
-
                 return false;
             })
         })
