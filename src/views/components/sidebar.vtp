@@ -14,18 +14,19 @@
 
             <ul class="nav nav-pills flex-column gap-2">
                 @for(const menu of menus)
+                @if(isAllowed(menu.permissions))
                 <li class="nav-item">
                     @if(menu.children.length)
                     <a class="nav-link d-flex align-items-center vtp-side-menu {{isRouteActive(menu.activeState) ? 'active' : ''}}" data-bs-toggle="collapse" href="#{{menu.name}}" role="button" aria-expanded="false">
-                        <i class="bi bi-folder2-open"></i>
+                        <i class="{{menu.icon}}"></i>
                         <span>{{menu.label}}</span>
-                        <i class="bi bi-chevron-down ms-auto"></i>
+                        <i class="bi bi-chevron-down fs-6 ms-auto"></i>
                     </a>
-                    <div class="collapse" id="{{menu.name}}">
+                    <div class="collapse {{isRouteActive(menu.activeState) ? 'show' : ''}}" id="{{menu.name}}">
                         <ul class="nav flex-column submenu">
                             @for(const children of menu.children)
                             <li>
-                                <a href="{{children.route}}" class="nav-link" router-link>
+                                <a href="{{children.route}}" class="nav-link {{isRouteActive(children.activeState) ? 'sub-active' : ''}}" router-link>
                                     <i class="bi bi-dot"></i>
                                     {{children.label}}
                                 </a>
@@ -40,6 +41,7 @@
                     </a>
                     @endif
                 </li>
+                @endif
                 @endfor
             </ul>
             <hr>
