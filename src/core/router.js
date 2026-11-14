@@ -1,14 +1,20 @@
 import view from "./view.js";
 import Context from "./context.js";
+import { isAuthenticated } from "../libs/functions.js";
 
 export default class Router {
 
     layouts = null
     context = null
 
-    constructor(routes, app) {
+    constructor(routes, app, options = {}) {
         this.routes = routes;
         this.app = app;
+
+        this.layouts = null;
+        this.context = null;
+
+        this.defaultLayout = options.defaultLayout ?? "views/layouts/app";
     }
 
     async load() {
@@ -16,18 +22,15 @@ export default class Router {
         const matched = this.match(path);
 
         if (!matched) {
-
-            document.getElementById("app").innerHTML = "<h1>404</h1>";
-
+            this.render404();
             return;
-
         }
 
         const route = matched.route;
         const params = matched.params;
 
         if (!route) {
-            document.getElementById("app").innerHTML = "<h1>404</h1>";
+            this.render404();
             return;
         }
 
@@ -100,6 +103,7 @@ export default class Router {
 
         window.addEventListener("popstate", () => {
             this.load();
+            this.app.refresh('vtp-sidebar')
         });
 
         document.addEventListener("click", (e) => {
@@ -170,6 +174,45 @@ export default class Router {
 
         return null;
 
+    }
+
+    async render404() {
+        const layout = this.defaultLayout;
+
+        const context = new Context(this);
+
+        await isAuthenticated(context)
+
+        console.log(context.app)
+
+        context.params = {};
+
+        this.context = context;
+
+        view.setRenderContext(context);
+
+        if (this.layouts !== layout) {
+            await view.initLayout(layout);
+            this.layouts = layout;
+
+            this.app.mount(document.querySelector("#app"));
+        }
+
+        const outlet = document.querySelector("[data-vtprouter]");
+
+        if (!outlet) {
+            console.error(
+                '[VTP Router] Outlet "[data-vtprouter]" tidak ditemukan setelah layout diinisialisasi.'
+            );
+            return;
+        }
+
+        outlet.innerHTML = `
+            <section class="vtp-error-404">
+                <h1>404</h1>
+                <p>Halaman yang kamu cari tidak ditemukan.</p>
+            </section>
+        `;
     }
 
 }

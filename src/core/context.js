@@ -30,15 +30,19 @@ export default class Context {
 
         const elements = document.querySelectorAll(selector);
 
-        elements.forEach(element => {
-            element.addEventListener(event, callback);
-    
-            this.events.push({
-                element,
-                event,
-                callback
-            });
-        })
+        if(elements.length)
+        {
+            elements.forEach(element => {
+                element.addEventListener(event, callback);
+        
+                this.events.push({
+                    element,
+                    event,
+                    callback
+                });
+            })
+        }
+
 
 
     }
@@ -116,6 +120,26 @@ export default class Context {
 
         return valueResult;
 
+    }
+
+    loadScript(scriptUrl, loadedMessage = '') {
+        const myScript = document.createElement('script');
+    
+        // 3. Set the source to your external JS file
+        myScript.src = scriptUrl;
+        
+        // 4. (Optional) Run code right after the script finishes downloading
+        if(loadedMessage)
+        {
+            myScript.addEventListener('load', () => {
+                    console.log(loadedMessage);
+                // console.log('Script loaded successfully and is ready to use!');
+                // You can safely call functions defined inside your-script.js here
+            });
+        }
+
+        // 5. Append the script to the body to trigger the network fetch
+        document.body.appendChild(myScript);
     }
 
 }

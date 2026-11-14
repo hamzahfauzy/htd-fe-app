@@ -30,6 +30,8 @@ for(${exp}){
 html += \`
 `);
 
+// directive("console", exp => `console.log(${exp});`);
+
 directive("endfor", () => `
 \`;
 }

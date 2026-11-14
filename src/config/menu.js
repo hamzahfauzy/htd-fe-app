@@ -15,7 +15,7 @@ export default [
         permissions: [],
         activeState: [],
         children: [
-            {label: 'Test', permissions: [], route: '/'}
+            {label: 'Test', permissions: [], route: '/test'}
         ]
     }
 ]

@@ -41,15 +41,16 @@ header.navbar {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 24px;
+    gap:3px;
 }
 
 .btn-burger .burger-line {
     width: 100%;
-    height: 5px;
+    height: 4px;
     background-color: #a8a4a4;
-    border-radius: 4px;
+    border-radius: 0px;
 }
 
 .sidebar .nav-link {
@@ -104,7 +105,14 @@ header.navbar {
     }
 }
 .main-content{
-    background:#fafbfd;
+    height:calc(100vh - 65px);
+    overflow-y:auto;
+    background:#f8faff;
+}
+
+.main-content-section {
+    max-width: 1200px;
+    margin: auto;
 }
 
 .dashboard-card{
@@ -332,4 +340,19 @@ td:not(.number-col, .action-col) {
 
 .datatable-dropdown-action ul.dropdown-menu {
     margin-right: 15px !important;
+}
+
+/* z-index dasar saat tertutup */
+.table th.action-col,
+.table td.action-col {
+    position: sticky !important;
+    right: 0;
+    z-index: 5;
+    background-color: #ffffff !important;
+}
+
+/* Naikkan z-index saat dropdown aktif/terbuka */
+.table td.action-col:has(.show),
+.table td.action-col:focus-within {
+    z-index: 20 !important;
 }
